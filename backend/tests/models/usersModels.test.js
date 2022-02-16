@@ -27,7 +27,7 @@ const payloadUser2 = {
   email: 'admin2@ebytr.com',
 };
 
-describe('Testing Users Models ', () => {
+describe('Testing Users Models', () => {
   let connectionMock;
 
   before(async () => {
