@@ -29,6 +29,20 @@ const create = async (name, password, role, email) => {
   return newUser;
 };
 
+const findUserLogin = async (email, password) => {
+  if (!email || !password) {
+    throw errorObject('All fields must be filled', 401);
+  }
+  const userFound = await usersModels.getUserByEmail(email);
+  if (!userFound || userFound.password !== password) {
+    throw errorObject('Incorrect username or password', 401);
+  }
+  delete userFound.password;
+  const token = authService.genToken(userFound);
+  return ({ status: 200, message: token });
+};
+
 module.exports = {
   create,
+  findUserLogin,
 };
