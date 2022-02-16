@@ -26,7 +26,7 @@ const create = async (name, password, role, email) => {
   }
 
   const newUser = await usersModels.create(name, password, role, email);
-  return newUser.ops[0];
+  return newUser;
 };
 
 module.exports = {
