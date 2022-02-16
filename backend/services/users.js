@@ -2,6 +2,8 @@ const Joi = require('@hapi/joi');
 
 const usersModels = require('../models/users');
 
+const authService = require('./authService');
+
 const { errorObject } = require('../utils/errorObject');
 
 const userSchema = Joi.object({
