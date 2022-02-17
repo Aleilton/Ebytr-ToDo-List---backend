@@ -10,6 +10,12 @@ const create = async (title, description, status, userId, priority, created, due
   return result;
 };
 
+const getTaskById = async (id) => {
+  const conn = await getConnection();
+  const result = await conn.collection(COLLECTION_NAME).findOne({ _id: id });
+  return result;
+};
+
 const getTasksByUserId = async (userId) => {
   const conn = await getConnection();
   const result = await conn.collection(COLLECTION_NAME).find({ userId }).toArray();
@@ -26,6 +32,7 @@ const update = async (id, title, description, status, userId, priority, dueData)
 
 module.exports = {
   create,
+  getTaskById,
   getTasksByUserId,
   update,
 };
