@@ -10,6 +10,13 @@ const create = async (title, description, status, userId, priority, created, due
   return result;
 };
 
+const getTasksByUserId = async (userId) => {
+  const conn = await getConnection();
+  const result = await conn.collection(COLLECTION_NAME).find({ userId }).toArray();
+  return result;
+};
+
 module.exports = {
   create,
+  getTasksByUserId,
 };
