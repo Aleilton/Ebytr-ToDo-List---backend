@@ -2,14 +2,14 @@ const Joi = require('@hapi/joi');
 
 const tasksModels = require('../models/tasks');
 
-const { errorObject } = require('../utils/errorObject');
+// const { errorObject } = require('../utils/errorObject');
 
 const taskSchema = Joi.object({
   title: Joi.string().required(),
   description: Joi.string(),
   status: Joi.string().required(),
   userId: Joi.string().required(),
-  priority: Joi.number().integer().min(1).max(5).default(1),
+  priority: Joi.number().integer().min(1).max(5),
   created: Joi.date().iso().required(),
   dueData: Joi.date().iso().required(),
 });
