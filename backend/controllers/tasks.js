@@ -16,6 +16,18 @@ const create = async (req, res, next) => {
   }
 };
 
+const getTasksByUserId = async (req, res, next) => {
+  try {
+    const { userId } = req;
+    const result = await taskService.getTasksByUserId(userId);
+    return res.status(200).json(result);
+  } catch (error) {
+    onsole.log(`ERROR: GET getTasksByUserId => ${error.message}`);
+    return next(error);
+  }
+};
+
 module.exports = {
   create,
+  getTasksByUserId,
 };
