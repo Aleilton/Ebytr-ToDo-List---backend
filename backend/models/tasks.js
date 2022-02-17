@@ -24,7 +24,7 @@ const getTasksByUserId = async (userId) => {
 
 const update = async (id, title, description, status, userId, priority, dueData) => {
   const conn = await getConnection();
-  const result = await conn.collection(COLLECTION_NAME).upddateOne(
+  const result = await conn.collection(COLLECTION_NAME).updateOne(
     { _id: id }, { $set: { title, description, status, userId, priority, dueData } }
   );
   return result;

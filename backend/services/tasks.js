@@ -1,8 +1,10 @@
 const Joi = require('@hapi/joi');
 
+const { ObjectId } = require('mongodb');
+
 const tasksModels = require('../models/tasks');
 
-// const { errorObject } = require('../utils/errorObject');
+const { errorObject } = require('../utils/errorObject');
 
 const taskSchema = Joi.object({
   title: Joi.string().required(),
@@ -47,9 +49,14 @@ const update = async (id, title, description, status, userId, priority, dueData)
     throw (err);
   }
 
-  const updateTask = await tasksModels.update(
-    id, title, description, status, userId, priority, dueData,
+  const taskFound = await tasksModels.getTaskById(new ObjectId(id));
+  if (!taskFound) throw errorObject('Invalid entries. Try again.', 400);
+
+  await tasksModels.update(
+    new ObjectId(id), title, description, status, userId, priority, dueData,
   );
+  
+  const updateTask = await tasksModels.getTaskById(new ObjectId(id));
   return updateTask;
 };
 

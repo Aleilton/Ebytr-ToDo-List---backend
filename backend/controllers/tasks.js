@@ -30,7 +30,7 @@ const getTasksByUserId = async (req, res, next) => {
 const update = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { id, title, description, status, userId, priority, dueData } = req.body;
+    const { title, description, status, priority, dueData } = req.body;
     const { userId } = req;
     const result = await taskService.update(
       id, title, description, status, userId, priority, dueData,
