@@ -10,7 +10,7 @@ const taskSchema = Joi.object({
   status: Joi.string().required(),
   userId: Joi.string().required(),
   priority: Joi.number().integer().min(1).max(5),
-  created: Joi.date().iso().required(),
+  created: Joi.date().iso(),
   dueData: Joi.date().iso().required(),
 });
 
@@ -36,7 +36,25 @@ const getTasksByUserId = async (userId) => {
   return result;
 };
 
+const update = async (id, title, description, status, userId, priority, dueData) => {
+  const { error } = taskSchema.validate({
+    title, description, status, userId, priority, dueData,
+  });
+  if (error) {
+    const err = new Error(error.details.map((errorObj) => errorObj.message).toString());
+    err.code = 'invalid_data';
+    err.status = 400;
+    throw (err);
+  }
+
+  const updateTask = await tasksModels.update(
+    id, title, description, status, userId, priority, dueData,
+  );
+  return updateTask;
+};
+
 module.exports = {
   create,
   getTasksByUserId,
+  update,
 };
