@@ -55,13 +55,26 @@ const update = async (id, title, description, status, userId, priority, dueData)
   await tasksModels.update(
     new ObjectId(id), title, description, status, userId, priority, dueData,
   );
-  
+
   const updateTask = await tasksModels.getTaskById(new ObjectId(id));
   return updateTask;
+};
+
+const deleteTask = async (id) => {
+  if (!ObjectId.isValid(id)) {
+    throw (errorObject('Task not found', 404));
+  }
+
+  const taskFound = await tasksModels.getTaskById(new ObjectId(id));
+  if (!taskFound) throw errorObject('Invalid entries. Try again.', 400);
+  
+  const result = await tasksModels.deleteTask(new ObjectId(id));
+  return result;
 };
 
 module.exports = {
   create,
   getTasksByUserId,
   update,
+  deleteTask,
 };
