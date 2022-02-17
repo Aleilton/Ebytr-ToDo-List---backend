@@ -30,9 +30,16 @@ const update = async (id, title, description, status, userId, priority, dueData)
   return result;
 };
 
+const deleteTask = async (id) => {
+  const conn = await getConnection();
+  const result = await conn.collection(COLLECTION_NAME).deleteOne({ _id: id });
+  return result;
+};
+
 module.exports = {
   create,
   getTaskById,
   getTasksByUserId,
   update,
+  deleteTask,
 };
