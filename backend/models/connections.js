@@ -1,4 +1,4 @@
-const { MongoClient } = require('mongodb');
+const { MongoClient, ServerApiVersion } = require('mongodb');
 
 require('dotenv').config();
 
@@ -6,6 +6,7 @@ const { MONGO_DB_URL, DB_NAME } = process.env;
 const OPTIONS = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  serverApi: ServerApiVersion.v1,
 };
 
 let db = null;
