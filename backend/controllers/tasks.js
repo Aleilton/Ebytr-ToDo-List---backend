@@ -22,7 +22,22 @@ const getTasksByUserId = async (req, res, next) => {
     const result = await taskService.getTasksByUserId(userId);
     return res.status(200).json(result);
   } catch (error) {
-    onsole.log(`ERROR: GET getTasksByUserId => ${error.message}`);
+    console.log(`ERROR: GET getTasksByUserId => ${error.message}`);
+    return next(error);
+  }
+};
+
+const update = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { id, title, description, status, userId, priority, dueData } = req.body;
+    const { userId } = req;
+    const result = await taskService.update(
+      id, title, description, status, userId, priority, dueData,
+    );
+    return res.status(200).json(result);
+  } catch (error) {
+    console.log(`ERROR: PUT updateTask => ${error.message}`);
     return next(error);
   }
 };
@@ -30,4 +45,5 @@ const getTasksByUserId = async (req, res, next) => {
 module.exports = {
   create,
   getTasksByUserId,
+  update,
 };
