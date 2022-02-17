@@ -16,7 +16,16 @@ const getTasksByUserId = async (userId) => {
   return result;
 };
 
+const update = async (id, title, description, status, userId, priority, dueData) => {
+  const conn = await getConnection();
+  const result = await conn.collection(COLLECTION_NAME).upddateOne(
+    { _id: id }, { $set: { title, description, status, userId, priority, dueData } }
+  );
+  return result;
+};
+
 module.exports = {
   create,
   getTasksByUserId,
+  update,
 };
