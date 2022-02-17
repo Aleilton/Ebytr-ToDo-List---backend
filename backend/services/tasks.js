@@ -31,6 +31,12 @@ const create = async (title, description, status, userId, priority, created, due
   return newtask;
 };
 
+const getTasksByUserId = async (userId) => {
+  const result = await tasksModels.getTasksByUserId(userId);
+  return result;
+};
+
 module.exports = {
   create,
+  getTasksByUserId,
 };
